@@ -1,0 +1,16 @@
+{
+    "name": "carbit",
+    "meta": {},
+    "editor": "blocksprj",
+    "pubId": "",
+    "pubCurrent": false,
+    "target": "microbit",
+    "targetVersion": "7.0.49",
+    "id": "2de6e62b-d076-41a0-a078-62ca16b9c943",
+    "recentUse": 1752350332,
+    "modificationTime": 1752350332,
+    "path": "carbit",
+    "cloudCurrent": false,
+    "saveId": null,
+    "githubCurrent": false
+}
