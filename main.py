@@ -109,14 +109,18 @@ class MicrobitIo(IoInterface):
         # # o o o
         . . o o o
         """
-        for myX in range(0, 5):
-            led.unplot(myX, 0)
-            led.unplot(myX, 1)
+        for myY in range(0, 5):
+            led.unplot(0, myY)
+            led.unplot(1, myY)
 
         if aBarHeight > 0:
-            pass
+            for myY in range(4, 4 - aBarHeight, -1):
+                led.plot(0, myY)
+                led.plot(1, myY)
         elif aBarHeight < 0:
-            pass
+            for myY in range(0, abs(aBarHeight)):
+                led.plot(0, myY)
+                led.plot(1, myY)
 
 
 class ControllerDecoder:
@@ -124,6 +128,7 @@ class ControllerDecoder:
         self.io = aIo
     
     def decode(self, aKey, aVal):
+        serial.write_line(f"Received {aKey} : {aVal}")
         if aKey == STEERING_KEY:
             self.io.setSteeringAngle(aVal)
         elif aKey == SPEED_KEY:

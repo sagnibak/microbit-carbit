@@ -174,6 +174,7 @@ class ControllerDecoder {
     }
     
     public decode(aKey: string, aVal: number) {
+        serial.writeLine(`Received ${aKey} : ${aVal}`)
         if (aKey == STEERING_KEY) {
             this.io.setSteeringAngle(aVal)
         } else if (aKey == SPEED_KEY) {
