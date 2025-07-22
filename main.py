@@ -35,16 +35,9 @@ class MicrobitIo(IoInterface):
     def setSpeed(self, aSpeed):
         myClippedSpeed = clip(aSpeed, 0, 180)
         pins.servo_write_pin(MicrobitIo.SPEED_PIN, myClippedSpeed)
-        
-        def toBarHeight(aClippedSpeed):
-            return (aClippedSpeed - 90) // 22
-
-        if myClippedSpeed < 90:
-            self._drawSpeedBar(toBarHeight(myClippedSpeed))
-        elif myClippedSpeed > 90:
-            self._drawSpeedBar(toBarHeight(myClippedSpeed))
-        else: # myClippedSpeed == 90
-            self._drawSpeedBar(toBarHeight(myClippedSpeed))
+        # FIXME: This is a hack to make it compatible with the speed
+        # graph on the ctrl:bit
+        self._drawSpeedBar((4 * myClippedSpeed) // 15 - 24)
 
     def _drawSteeringArrow(self, aDirection: ArrowNames):
         """
@@ -128,7 +121,6 @@ class ControllerDecoder:
         self.io = aIo
     
     def decode(self, aKey, aVal):
-        serial.write_line(f"Received {aKey} : {aVal}")
         if aKey == STEERING_KEY:
             self.io.setSteeringAngle(aVal)
         elif aKey == SPEED_KEY:
